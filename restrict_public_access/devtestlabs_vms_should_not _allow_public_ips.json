@@ -1,0 +1,43 @@
+{
+    "mode": "Indexed",
+    "policyRule": {
+        "if": {
+            "allOf": [
+                {
+                    "field": "type",
+                    "equals": "Microsoft.DevTestLab/labs/virtualMachines"
+                },
+                {
+                    "anyOf": [
+                        {
+                            "field": "Microsoft.DevTestLab/labs/virtualMachines/disallowPublicIpAddress",
+                            "exists": "false"
+                        },
+                        {
+                            "field": "Microsoft.DevTestLab/labs/virtualMachines/disallowPublicIpAddress",
+                            "equals": "false"
+                        }
+                    ]
+                }
+            ]
+        },
+        "then": {
+            "effect": "[parameters('effect')]"
+        }
+    },
+    "parameters": {
+        "effect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Effect",
+                "description": "Enable or disable the execution of the policy"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Audit"
+        }
+    }
+}
