@@ -1,0 +1,17 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "field": "type",
+                "equals": "Microsoft.EventHub/namespaces/networkRuleSets"
+            },
+            {
+                "field": "Microsoft.EventHub/namespaces/networkRuleSets/publicNetworkAccess",
+                "notEquals": "Disabled"
+            }
+        ]
+    },
+    "then": {
+        "effect": "[parameters('effect')]"
+    }
+}
