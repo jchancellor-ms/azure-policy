@@ -1,0 +1,17 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "field": "type",
+                "equals": "Microsoft.Migrate/migrateProjects"
+            },
+            {
+                "field": "Microsoft.Migrate/migrateProjects/publicNetworkAccess",
+                "notEquals": "Disabled"
+            }
+        ]
+    },
+    "then": {
+        "effect": "[parameters('effect')]"
+    }
+}
