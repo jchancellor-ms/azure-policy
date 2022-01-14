@@ -1,0 +1,16 @@
+{
+    "if": {
+        "field": "type",
+        "equals": "Microsoft.Relay/namespaces"
+    },
+    "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+            "type": "Microsoft.Relay/namespaces/privateEndpointConnections",
+            "existenceCondition": {
+                "field": "Microsoft.Relay/namespaces/privateEndpointConnections/privateLinkServiceConnectionState.status",
+                "equals": "Approved"
+            }
+        }
+    }
+}
