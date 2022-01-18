@@ -1,0 +1,54 @@
+{
+    "mode": "Indexed",
+    "parameters": {
+        "effect": {
+            "type": "String",
+            "metadata": {
+                "description": "The effect determines what happens when the policy rule is evaluated to match",
+                "displayName": "Effect"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Deny"
+        },
+        "tlsVersion": {
+            "type": "String",
+            "metadata": {
+                "description": "The TLS version to require",
+                "displayName": "TLS Version"
+            },
+            "allowedValues": [
+                "1.2"
+            ],
+            "defaultValue": "1.2"
+        }
+    },
+    "policyRule": {
+        "if": {
+            "allOf": [
+                {
+                    "equals": "Microsoft.HDInsight/clusters",
+                    "field": "type"
+                },
+                {
+                    "anyOf": [
+                        {
+                            "field": "Microsoft.HDInsight/clusters/minSupportedTlsVersion",
+                            "notEquals": "[parameters('tlsVersion')]"
+                        },
+                        {
+                            "exists": "false",
+                            "field": "Microsoft.HDInsight/clusters/minSupportedTlsVersion"
+                        }
+                    ]
+                }
+            ]
+        },
+        "then": {
+            "effect": "[parameters('effect')]"
+        }
+    }
+}

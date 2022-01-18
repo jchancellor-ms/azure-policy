@@ -1,0 +1,25 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "equals": "Microsoft.HDInsight/clusters",
+                "field": "type"
+            },
+            {
+                "anyOf": [
+                    {
+                        "field": "Microsoft.HDInsight/clusters/minSupportedTlsVersion",
+                        "notEquals": "[parameters('tlsVersion')]"
+                    },
+                    {
+                        "exists": "false",
+                        "field": "Microsoft.HDInsight/clusters/minSupportedTlsVersion"
+                    }
+                ]
+            }
+        ]
+    },
+    "then": {
+        "effect": "[parameters('effect')]"
+    }
+}
