@@ -1,0 +1,56 @@
+{
+    "mode": "Indexed",
+    "parameters": {
+        "effect": {
+            "type": "String",
+            "metadata": {
+                "description": "The effect determines what happens when the policy rule is evaluated to match",
+                "displayName": "Effect"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Deny"
+        },
+        "tlsVersion": {
+            "type": "String",
+            "metadata": {
+                "description": "The TLS version to require",
+                "displayName": "TLS Version"
+            },
+            "allowedValues": [
+                "TLS1_0",
+                "TLS1_1",
+                "TLS1_2"
+            ],
+            "defaultValue": "TLS1_2"
+        }
+    },
+    "policyRule": {
+        "if": {
+            "allOf": [
+                {
+                    "equals": "Microsoft.DBforMariaDB/servers",
+                    "field": "type"
+                },
+                {
+                    "anyOf": [
+                        {
+                            "field": "Microsoft.DBforMariaDB/servers/minimalTlsVersion",
+                            "notEquals": "[parameters('tlsVersion')]"
+                        },
+                        {
+                            "exists": "false",
+                            "field": "Microsoft.DBforMariaDB/servers/minimalTlsVersion"
+                        }
+                    ]
+                }
+            ]
+        },
+        "then": {
+            "effect": "[parameters('effect')]"
+        }
+    }
+}
