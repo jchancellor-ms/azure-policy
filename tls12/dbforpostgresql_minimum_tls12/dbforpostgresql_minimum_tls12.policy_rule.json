@@ -1,0 +1,25 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "equals": "Microsoft.DBforPostgreSQL/servers",
+                "field": "type"
+            },
+            {
+                "anyOf": [
+                    {
+                        "field": "Microsoft.DBforPostgreSQL/servers/minimalTlsVersion",
+                        "notEquals": "[parameters('tlsVersion')]"
+                    },
+                    {
+                        "exists": "false",
+                        "field": "Microsoft.DBforPostgreSQL/servers/minimalTlsVersion"
+                    }
+                ]
+            }
+        ]
+    },
+    "then": {
+        "effect": "[parameters('effect')]"
+    }
+}

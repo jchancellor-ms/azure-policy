@@ -1,6 +1,6 @@
 {
-    "Mode": "Indexed",
-    "Parameters": {
+    "mode": "Indexed",
+    "parameters": {
       "effect": {
         "type": "String",
         "metadata": {
@@ -28,7 +28,7 @@
         "defaultValue": "TLS1_2"
       }
     },
-    "PolicyRule": {
+    "policyRule": {
       "if": {
         "allOf": [
           {
