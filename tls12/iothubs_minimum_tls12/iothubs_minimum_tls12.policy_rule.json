@@ -1,0 +1,25 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "equals": "Microsoft.Devices/IotHubs",
+                "field": "type"
+            },
+            {
+                "anyOf": [
+                    {
+                        "field": "Microsoft.Devices/IotHubs/minTlsVersion",
+                        "notEquals": "[parameters('tlsVersion')]"
+                    },
+                    {
+                        "exists": "false",
+                        "field": "Microsoft.Devices/IotHubs/minTlsVersion"
+                    }
+                ]
+            }
+        ]
+    },
+    "then": {
+        "effect": "[parameters('effect')]"
+    }
+}
